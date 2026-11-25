@@ -27,6 +27,7 @@
     <section class="kartu">
       <form action="{{ route('admin.mesin.update', $mesin->kode) }}" method="post" class="form-grid">
         @csrf
+        @method('PUT')
         <div>
           <label for="kode">Kode mesin</label>
           <input type="text" id="kode" name="kode" value="{{ $mesin->kode }}" readonly>

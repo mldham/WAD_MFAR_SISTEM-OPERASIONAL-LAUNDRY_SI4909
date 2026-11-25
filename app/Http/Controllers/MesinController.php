@@ -21,12 +21,15 @@ class MesinController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'kode' => 'required',
-            'nama' => 'required',
-            'jenis' => 'required',
-            'merek' => 'required',
-            'status' => 'required',
+        $data = $request->validate([
+            'kode'      => 'required|string|max:20|unique:mesin,kode',
+            'nama'      => 'required|string|max:100',
+            'jenis'     => 'required|string|max:50',
+            'merek'     => 'required|string|max:50',
+            'kapasitas' => 'nullable|integer|min:1',
+            'status'    => 'required|string|max:30',
+        ], [
+            'kode.unique' => 'Kode mesin sudah digunakan. Gunakan kode lain.',
         ]);
 
         Mesin::create([

@@ -120,13 +120,16 @@
               <td>{{ $row->merek }}</td>
               <td>{{ $row->kapasitas ? $row->kapasitas . ' kg' : '-' }}</td>
               <td><span class="lencana {{ strtolower($row->status) }}">{{ $row->status }}</span></td>
-              <td>
-                <div class="aksi-tabel">
-                  <a href="{{ route('admin.mesin.edit', $row->kode) }}" class="tombol-kecil edit">Edit</a>
-                  <a href="{{ route('admin.mesin.hapus', $row->kode) }}" class="tombol-kecil hapus"
-                     data-nama="{{ $row->nama }}"
-                     onclick="return confirm('Yakin mesin ' + this.dataset.nama + ' mau dihapus?')">Hapus</a>
-                </div>
+              <td class="aksi">
+                <a href="{{ route('admin.mesin.edit', $row->kode) }}" class="tombol-edit">Edit</a>
+
+                @if (Auth::guard('admin')->user()->peran === 'admin')
+                  <a href="{{ route('admin.mesin.hapus', $row->kode) }}"
+                      class="tombol-hapus"
+                      onclick="return confirm('Yakin ingin menghapus mesin {{ $row->nama }}?')">
+                    Hapus
+                  </a>
+                @endif
               </td>
             </tr>
           @empty
